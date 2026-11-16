@@ -81,12 +81,14 @@ Resultados obtenidos el 16 de noviembre de 2026. La compilación también mostr�
 
 ## Pruebas en el emulador
 
+La revisión final del juego, incluida la opción Exit, fue confirmada por el autor después de probar la app.
+
 - [x] Escribir una respuesta incorrecta y comprobar el aviso.
 - [x] Acertar y comprobar que suma 20 puntos y avanza el contador.
 - [x] Usar Skip y comprobar que no suma puntos.
 - [x] Rotar el dispositivo y comprobar que siguen la misma palabra, contador, puntaje y texto.
 - [x] Llegar a la palabra 10, revisar el puntaje y probar Play Again.
-- [ ] Terminar otra partida y comprobar Exit.
+- [x] Terminar otra partida y comprobar Exit.
 
 ## Captura real
 
@@ -99,10 +101,10 @@ Unscramble funcionando en el emulador Pixel 9 Pro, después de reiniciar la part
 - [x] Incluir la explicación del trabajo y del apoyo de IA.
 - [x] Ejecutar la app y comprobar la rotación en el emulador.
 - [x] Agregar una captura real.
-- [ ] Probar Exit y revisar el juego por tu cuenta.
+- [x] Probar Exit y revisar el juego por tu cuenta.
 - [x] Subir los commits al repositorio propio en GitHub. `origin` apunta al repo de la tarea y `upstream` conserva el enlace al proyecto de Google.
 - [x] Dejar el repositorio público para que el equipo del curso pueda revisarlo.
-- [ ] Revisar el enlace en una ventana de incógnito y publicarlo en Canvas.
+- [x] Revisar el enlace en una ventana de incógnito y publicarlo en Canvas.
 
 ## Créditos
 
