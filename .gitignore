@@ -34,3 +34,7 @@ proguard-project.txt
 # Android Studio/IDEA
 *.iml
 .idea
+
+# Herramientas locales y archivos temporales de revisión
+.tools/
+tmp/
