@@ -1,6 +1,6 @@
 # Unscramble: ViewModel y State en Compose
 
-Borrador para la tarea. Antes de entregar, completa tu explicación personal. Ya incluye una captura real de la app funcionando en el emulador.
+Proyecto de la tarea de codelab a elección. Incluye el juego terminado, una explicación del trabajo y una captura real de la app funcionando en el emulador.
 
 Codelab: [ViewModel y State en Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-viewmodel-and-state?hl=es-419).
 
@@ -23,16 +23,17 @@ Se trabajó desde la rama `starter`, que al inicio tenía la pantalla lista, per
 
 Los commits separan estos avances. La dependencia de ViewModel usa la versión 2.8.7 para coincidir con Lifecycle en este proyecto.
 
-## Mi explicación personal (por completar)
+## Mi explicación del trabajo
 
-Escribe esta parte con tus palabras después de revisar el código y probar la app:
+Para esta tarea trabajé el codelab de ViewModel y State en Compose con el juego Unscramble. Partí de la rama `starter`, donde ya estaba el diseño de la pantalla, pero faltaba hacer que el juego funcionara. El trabajo fue conectar esa pantalla con las respuestas, los puntos y el cambio de palabras.
 
-- Elegí este codelab porque: **[completar]**.
-- Lo que construí y cómo se juega: **[completar]**.
-- Lo que entendí de ViewModel y del estado: **[completar]**.
-- Cómo pasa una acción de la pantalla al ViewModel: **[completar con un ejemplo]**.
-- Algo que me costó y cómo lo resolví: **[completar si aplica]**.
-- Cómo usé la ayuda de IA y qué revisé por mi cuenta: **[completar]**.
+La idea principal es separar lo que se ve de las reglas del juego. `GameUiState` reúne los datos que se muestran, como la palabra, el puntaje y el contador. `GameViewModel` se encarga de cambiarlos cuando se juega. Por ejemplo, al tocar Submit, la pantalla le pasa la respuesta al ViewModel. Si está bien, suma 20 puntos y prepara otra palabra; si está mal, muestra un aviso para intentar de nuevo. Compose lee esos cambios y actualiza la pantalla.
+
+También se agregó la opción de saltar palabras, el límite de 10 palabras por partida y el mensaje final para volver a jugar o salir. Al girar el emulador, la partida conserva la palabra, los puntos y lo que estaba escrito, porque esos datos están guardados en el ViewModel.
+
+Un problema que apareció fue la configuración para compilar. Al principio solo estaba Java 8 y faltaba el SDK de Android. Después instalé Android Studio y, con ayuda de Codex, se configuraron el SDK 35 y un JDK 21 para este proyecto. Con eso se pudo compilar e instalar la app en el emulador Pixel 9 Pro.
+
+Usé Codex como apoyo para revisar el proyecto, implementar los pasos del codelab, resolver la configuración, preparar pruebas y redactar esta explicación. Las comprobaciones automáticas y las pruebas de la app en el emulador también se hicieron con su ayuda. Pasaron las cinco pruebas de la lógica y se comprobó que funcionan las respuestas, los puntos, Skip, la rotación y el reinicio. La captura incluida abajo corresponde a esa ejecución real.
 
 ## Problemas del entorno
 
@@ -93,7 +94,7 @@ Unscramble funcionando en el emulador Pixel 9 Pro, después de reiniciar la part
 
 ## Antes de entregar
 
-- [ ] Completar la explicación personal.
+- [x] Incluir la explicación del trabajo y del apoyo de IA.
 - [x] Ejecutar la app y comprobar la rotación en el emulador.
 - [x] Agregar una captura real.
 - [ ] Probar Exit y revisar el juego por tu cuenta.
