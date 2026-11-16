@@ -1,6 +1,6 @@
 # Unscramble: ViewModel y State en Compose
 
-Borrador para la tarea. Antes de entregar, completa tu explicación personal y agrega una captura real de la app funcionando.
+Borrador para la tarea. Antes de entregar, completa tu explicación personal. Ya incluye una captura real de la app funcionando en el emulador.
 
 Codelab: [ViewModel y State en Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-viewmodel-and-state?hl=es-419).
 
@@ -19,7 +19,7 @@ Se trabajó desde la rama `starter`, que al inicio tenía la pantalla lista, per
 5. **Respuestas y puntos:** el botón Submit y la tecla Done revisan la respuesta. Se aceptan mayúsculas y minúsculas. Una respuesta incorrecta muestra un error.
 6. **Contador y Skip:** acertar o saltar lleva a la siguiente palabra. Saltar no cambia el puntaje.
 7. **Fin de partida:** después de la palabra 10 aparece el diálogo final. Volver a jugar limpia los puntos, el contador, el texto y las palabras usadas.
-8. **Rotación:** el estado está en el ViewModel, como pide el codelab. La comprobación en un dispositivo sigue pendiente. Esto no guarda la partida si Android cierra el proceso de la app.
+8. **Rotación:** se comprobó en el emulador que se conservan la palabra, el contador, el puntaje y el texto escrito. En horizontal se puede deslizar para ver el contenido de abajo. Esto no guarda la partida si Android cierra el proceso de la app.
 
 Los commits separan estos avances. La dependencia de ViewModel usa la versión 2.8.7 para coincidir con Lifecycle en este proyecto.
 
@@ -38,7 +38,9 @@ Escribe esta parte con tus palabras después de revisar el código y probar la a
 
 Al inicio solo estaba disponible Java 8, sin `JAVA_HOME` ni Android SDK configurados. Se descargó un JDK 21 local y se prepararon Android SDK 35 y Build Tools 35.0.0. Gradle 8.12 se ejecutó con ese JDK.
 
-La extracción inicial de las herramientas de Android falló por una ruta demasiado larga en Windows. Se extrajeron en una carpeta temporal más corta. El SDK de esta sesión está en `%TEMP%\unscramble-android-sdk`; puede borrarse al limpiar los temporales. Para seguir trabajando, conviene instalarlo desde Android Studio y actualizar `local.properties`.
+La extracción inicial de las herramientas de Android falló por una ruta demasiado larga en Windows. Primero se usó una carpeta temporal más corta. Después de instalar Android Studio, se actualizó `local.properties` para usar el SDK de `%LOCALAPPDATA%\Android\Sdk`, y se agregaron Platform 35 y Build Tools 35.0.0.
+
+Android Studio trae Java 25. Para este proyecto se comprobó la compilación con el JDK 21 local. En Settings > Build, Execution, Deployment > Build Tools > Gradle, selecciona ese JDK en Gradle JDK (carpeta `.tools/java/jdk-21.0.13.0.2+1` dentro del proyecto).
 
 El código inicial también traía un diccionario distinto en `src/test`, con los mismos nombres que el diccionario de la app. Se reemplazó por pruebas que resuelven las palabras usando el diccionario real.
 
@@ -67,34 +69,34 @@ $env:JAVA_HOME = (Get-ChildItem .tools/java -Directory | Select-Object -First 1)
 - Compilación: `:app:assembleDebug` terminó con `BUILD SUCCESSFUL`. APK generado en `app/build/outputs/apk/debug/app-debug.apk`.
 - Pruebas: `:app:testDebugUnitTest` terminó correctamente. Pasaron las 5 pruebas, sin errores ni pruebas omitidas. Reporte local: `app/build/reports/tests/testDebugUnitTest/index.html`.
 - Revisión de Android: `:app:lintDebug` terminó correctamente, con 0 errores y 6 avisos. Los avisos son sobre versiones más nuevas de librerías y una etiqueta repetida en el manifiesto. Reporte local: `app/build/reports/lint-results-debug.html`.
-- Dispositivo: `adb devices -l` no mostró dispositivos conectados. No se ejecutó la app ni se comprobó la rotación.
+- Emulador: Pixel 9 Pro con Android 17, detectado como `emulator-5554`. `:app:installDebug` terminó con `BUILD SUCCESSFUL` y la app abrió correctamente.
+- Pantalla: se comprobaron una respuesta incorrecta, un acierto de 20 puntos, Skip sin sumar, rotación con texto escrito, final en 10 palabras y Play Again. La captura de abajo salió de esa ejecución real.
 
 Las pruebas cubren el inicio, las respuestas incorrectas, los puntos, los saltos, las 10 rondas sin repetir, el bloqueo después del final y el reinicio. No reemplazan una prueba de la pantalla en Android.
 
 Resultados obtenidos el 16 de noviembre de 2026. La compilación también mostró avisos sobre herramientas del SDK de distinta generación, `statusBarColor` en el tema original y una biblioteca nativa que se empaquetó sin quitar símbolos. No impidieron generar el APK.
 
-## Prueba manual pendiente
+## Pruebas en el emulador
 
-- Escribir una respuesta incorrecta y comprobar el aviso.
-- Acertar y comprobar que suma 20 puntos y avanza el contador.
-- Usar Skip y comprobar que no suma puntos.
-- Rotar el dispositivo con una respuesta a medio escribir: deben seguir la misma palabra, contador, puntaje y texto.
-- Llegar a la palabra 10, revisar el puntaje y probar Play Again.
-- Terminar otra partida y comprobar Exit.
+- [x] Escribir una respuesta incorrecta y comprobar el aviso.
+- [x] Acertar y comprobar que suma 20 puntos y avanza el contador.
+- [x] Usar Skip y comprobar que no suma puntos.
+- [x] Rotar el dispositivo y comprobar que siguen la misma palabra, contador, puntaje y texto.
+- [x] Llegar a la palabra 10, revisar el puntaje y probar Play Again.
+- [ ] Terminar otra partida y comprobar Exit.
 
-## Captura real (pendiente)
+## Captura real
 
-Ejecuta la app y guarda una captura en `docs/captura-app.png`. Después agrega esta línea al README:
+Unscramble funcionando en el emulador Pixel 9 Pro, después de reiniciar la partida:
 
-```markdown
 ![Unscramble funcionando](docs/captura-app.png)
-```
 
 ## Antes de entregar
 
 - [ ] Completar la explicación personal.
-- [ ] Ejecutar la app y hacer las pruebas manuales, incluida la rotación.
-- [ ] Agregar una captura real.
+- [x] Ejecutar la app y comprobar la rotación en el emulador.
+- [x] Agregar una captura real.
+- [ ] Probar Exit y revisar el juego por tu cuenta.
 - [ ] Subir los commits a un repositorio propio en GitHub. El remoto original apunta al repositorio de Google.
 - [ ] Dejar el repositorio público o dar acceso al equipo del curso.
 - [ ] Revisar el enlace en una ventana de incógnito y publicarlo en Canvas.
