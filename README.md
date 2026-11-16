@@ -4,6 +4,8 @@ Proyecto de la tarea de codelab a elección. Incluye el juego terminado, una exp
 
 Codelab: [ViewModel y State en Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-viewmodel-and-state?hl=es-419).
 
+Repositorio: [Higan-Banana/unscramble-codelab](https://github.com/Higan-Banana/unscramble-codelab).
+
 ## Qué hace la app
 
 Es un juego para ordenar palabras en inglés. Cada partida tiene 10 palabras, sin repetir. Una respuesta correcta suma 20 puntos. Si la respuesta está mal, aparece un aviso y se puede intentar de nuevo. También se puede saltar una palabra sin ganar puntos. Al terminar, aparece el puntaje y las opciones de volver a jugar o salir.
@@ -98,8 +100,8 @@ Unscramble funcionando en el emulador Pixel 9 Pro, después de reiniciar la part
 - [x] Ejecutar la app y comprobar la rotación en el emulador.
 - [x] Agregar una captura real.
 - [ ] Probar Exit y revisar el juego por tu cuenta.
-- [ ] Subir los commits a un repositorio propio en GitHub. El remoto original apunta al repositorio de Google.
-- [ ] Dejar el repositorio público o dar acceso al equipo del curso.
+- [x] Subir los commits al repositorio propio en GitHub. `origin` apunta al repo de la tarea y `upstream` conserva el enlace al proyecto de Google.
+- [x] Dejar el repositorio público para que el equipo del curso pueda revisarlo.
 - [ ] Revisar el enlace en una ventana de incógnito y publicarlo en Canvas.
 
 ## Créditos
