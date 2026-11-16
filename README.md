@@ -81,8 +81,6 @@ Resultados obtenidos el 16 de noviembre de 2026. La compilación también mostr�
 
 ## Pruebas en el emulador
 
-La revisión final del juego, incluida la opción Exit, fue confirmada por el autor después de probar la app.
-
 - [x] Escribir una respuesta incorrecta y comprobar el aviso.
 - [x] Acertar y comprobar que suma 20 puntos y avanza el contador.
 - [x] Usar Skip y comprobar que no suma puntos.
