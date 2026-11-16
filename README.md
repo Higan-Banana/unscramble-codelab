@@ -1,21 +1,104 @@
-Unscramble app
-=================================
+# Unscramble: ViewModel y State en Compose
 
-Single player game app that displays scrambled words. To play the game, player has to make a
-word using all the letters in the displayed scrambled word.
-This code demonstrates the Android Architecture component- ViewModel and StateFlow.
+Borrador para la tarea. Antes de entregar, completa tu explicación personal y agrega una captura real de la app funcionando.
 
+Codelab: [ViewModel y State en Compose](https://developer.android.com/codelabs/basic-android-kotlin-compose-viewmodel-and-state?hl=es-419).
 
-Pre-requisites
---------------
-* Experience with Kotlin syntax.
-* How to create and run a project in Android Studio.
-* How to create composable functions 
+## Qué hace la app
 
+Es un juego para ordenar palabras en inglés. Cada partida tiene 10 palabras, sin repetir. Una respuesta correcta suma 20 puntos. Si la respuesta está mal, aparece un aviso y se puede intentar de nuevo. También se puede saltar una palabra sin ganar puntos. Al terminar, aparece el puntaje y las opciones de volver a jugar o salir.
 
-Getting Started
----------------
-1. Install Android Studio, if you don't already have it.
-2. Download the sample.
-3. Import the sample into Android Studio.
-4. Build and run the sample.
+## Cambios por etapas
+
+Se trabajó desde la rama `starter`, que al inicio tenía la pantalla lista, pero mostraba una palabra fija y los botones no hacían nada.
+
+1. **Revisión del proyecto:** se revisaron la rama, los archivos y las herramientas de compilación.
+2. **Estado del juego:** se agregó `GameUiState` para reunir la palabra, el puntaje, el contador y los avisos del juego.
+3. **ViewModel:** se agregó `GameViewModel` para elegir y mezclar palabras. Guarda las palabras usadas para evitar que se repitan.
+4. **Conexión con Compose:** la pantalla lee `StateFlow` y muestra sus cambios. El texto del jugador se guarda en el ViewModel.
+5. **Respuestas y puntos:** el botón Submit y la tecla Done revisan la respuesta. Se aceptan mayúsculas y minúsculas. Una respuesta incorrecta muestra un error.
+6. **Contador y Skip:** acertar o saltar lleva a la siguiente palabra. Saltar no cambia el puntaje.
+7. **Fin de partida:** después de la palabra 10 aparece el diálogo final. Volver a jugar limpia los puntos, el contador, el texto y las palabras usadas.
+8. **Rotación:** el estado está en el ViewModel, como pide el codelab. La comprobación en un dispositivo sigue pendiente. Esto no guarda la partida si Android cierra el proceso de la app.
+
+Los commits separan estos avances. La dependencia de ViewModel usa la versión 2.8.7 para coincidir con Lifecycle en este proyecto.
+
+## Mi explicación personal (por completar)
+
+Escribe esta parte con tus palabras después de revisar el código y probar la app:
+
+- Elegí este codelab porque: **[completar]**.
+- Lo que construí y cómo se juega: **[completar]**.
+- Lo que entendí de ViewModel y del estado: **[completar]**.
+- Cómo pasa una acción de la pantalla al ViewModel: **[completar con un ejemplo]**.
+- Algo que me costó y cómo lo resolví: **[completar si aplica]**.
+- Cómo usé la ayuda de IA y qué revisé por mi cuenta: **[completar]**.
+
+## Problemas del entorno
+
+Al inicio solo estaba disponible Java 8, sin `JAVA_HOME` ni Android SDK configurados. Se descargó un JDK 21 local y se prepararon Android SDK 35 y Build Tools 35.0.0. Gradle 8.12 se ejecutó con ese JDK.
+
+La extracción inicial de las herramientas de Android falló por una ruta demasiado larga en Windows. Se extrajeron en una carpeta temporal más corta. El SDK de esta sesión está en `%TEMP%\unscramble-android-sdk`; puede borrarse al limpiar los temporales. Para seguir trabajando, conviene instalarlo desde Android Studio y actualizar `local.properties`.
+
+El código inicial también traía un diccionario distinto en `src/test`, con los mismos nombres que el diccionario de la app. Se reemplazó por pruebas que resuelven las palabras usando el diccionario real.
+
+## Cómo compilar y probar
+
+En Android Studio, abre este proyecto, selecciona un JDK 17 o 21 para Gradle e instala Android SDK Platform 35 y Build Tools 35.0.0. Sincroniza el proyecto y ejecuta el módulo `app` en un emulador o teléfono con Android 7.0 o superior.
+
+Desde PowerShell, con Java y el SDK ya configurados:
+
+```powershell
+.\gradlew.bat :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain
+```
+
+Si usas el JDK que se descargó en esta sesión, configura primero la terminal:
+
+```powershell
+$env:JAVA_HOME = (Get-ChildItem .tools/java -Directory | Select-Object -First 1).FullName
+```
+
+`local.properties` guarda la ruta del SDK de esta máquina. Ese archivo, las herramientas locales y los archivos temporales están fuera de Git.
+
+## Verificaciones realizadas
+
+- Java y Gradle: JDK 21.0.13.0.2 y Gradle 8.12 comprobados.
+- SDK: Platform 35, Build Tools 35.0.0 y platform-tools instalados.
+- Compilación: `:app:assembleDebug` terminó con `BUILD SUCCESSFUL`. APK generado en `app/build/outputs/apk/debug/app-debug.apk`.
+- Pruebas: `:app:testDebugUnitTest` terminó correctamente. Pasaron las 5 pruebas, sin errores ni pruebas omitidas. Reporte local: `app/build/reports/tests/testDebugUnitTest/index.html`.
+- Revisión de Android: `:app:lintDebug` terminó correctamente, con 0 errores y 6 avisos. Los avisos son sobre versiones más nuevas de librerías y una etiqueta repetida en el manifiesto. Reporte local: `app/build/reports/lint-results-debug.html`.
+- Dispositivo: `adb devices -l` no mostró dispositivos conectados. No se ejecutó la app ni se comprobó la rotación.
+
+Las pruebas cubren el inicio, las respuestas incorrectas, los puntos, los saltos, las 10 rondas sin repetir, el bloqueo después del final y el reinicio. No reemplazan una prueba de la pantalla en Android.
+
+Resultados obtenidos el 16 de noviembre de 2026. La compilación también mostró avisos sobre herramientas del SDK de distinta generación, `statusBarColor` en el tema original y una biblioteca nativa que se empaquetó sin quitar símbolos. No impidieron generar el APK.
+
+## Prueba manual pendiente
+
+- Escribir una respuesta incorrecta y comprobar el aviso.
+- Acertar y comprobar que suma 20 puntos y avanza el contador.
+- Usar Skip y comprobar que no suma puntos.
+- Rotar el dispositivo con una respuesta a medio escribir: deben seguir la misma palabra, contador, puntaje y texto.
+- Llegar a la palabra 10, revisar el puntaje y probar Play Again.
+- Terminar otra partida y comprobar Exit.
+
+## Captura real (pendiente)
+
+Ejecuta la app y guarda una captura en `docs/captura-app.png`. Después agrega esta línea al README:
+
+```markdown
+![Unscramble funcionando](docs/captura-app.png)
+```
+
+## Antes de entregar
+
+- [ ] Completar la explicación personal.
+- [ ] Ejecutar la app y hacer las pruebas manuales, incluida la rotación.
+- [ ] Agregar una captura real.
+- [ ] Subir los commits a un repositorio propio en GitHub. El remoto original apunta al repositorio de Google.
+- [ ] Dejar el repositorio público o dar acceso al equipo del curso.
+- [ ] Revisar el enlace en una ventana de incógnito y publicarlo en Canvas.
+
+## Créditos
+
+Proyecto base de [Google Developer Training](https://github.com/google-developer-training/basic-android-kotlin-compose-training-unscramble), con licencia Apache 2.0. Se conserva el archivo `LICENSE` y los avisos del código original.
